@@ -2,9 +2,10 @@ import tweepy
 import os, json, sys
 
 sys.path.insert(0, os.path.abspath(os.getcwd()))
-print(sys.path)
+#print(sys.path)
 
 from src.struct.twitter import Tweet, User
+from src.sentiment.sentiment import SentimentAnalyzer
 
 class TweepyAPI:
     def __init__(self):
@@ -21,19 +22,34 @@ class TweepyAPI:
 
     def parse_tweet(self, tweet):
         #Get necessary parameters, if the key does not exist, assign empty list [] as default
-        hashtags = tweet.entities.get('hashtags', [])
-        media = tweet.entities.get('media', [])
-        urls = tweet.entities.get('urls', [])
+        hashtags = tweet.entities.get('hashtags', [])     
+        mentions = tweet.entities.get('user_mentions', [])
 
         place = tweet.place
         if place is None:
             place = []
         else:  
             place = place.full_name
+        
+        '''
+        to catch retweets:
+            Retweeted post without new text is a RETWEET
+            Retweeted post with new text is a REPLY or QUOTE
+        '''
+        try:
+            text = tweet.retweeted_status.full_text
+            media = tweet.retweeted_status.entities.get('media', [])
+            urls = tweet.retweeted_status.entities.get('urls', [])
+            #Should get all the information (id, fav, media, urls, ...) from the original tweet?
+            #Not ID, Created_at
+        except:
+            text = tweet.full_text
+            media = tweet.entities.get('media', [])
+            urls = tweet.entities.get('urls', [])
 
-        print(place)
 
-        return Tweet(tweet.id,tweet.text,tweet.favorite_count, hashtags, media, tweet.retweet_count, urls, place, tweet.created_at)
+
+        return Tweet(tweet.id,text,tweet.favorite_count, hashtags, media, tweet.retweet_count, urls, place, tweet.created_at, mentions)
 
     def parse_user(self, user):
         #Necessary parameters: id, name, location, description, verified, followers_count, friends_count, listed_count, favourites_count, statuses_count
@@ -49,7 +65,7 @@ class TweepyAPI:
     def get_user_timeline(self, userID):
         #Number of requested status
         #Each request allow a max of 200
-        StatusNumber = 21
+        StatusNumber = 10
         count = 10 #It must be less equal than 200
         offset = StatusNumber % count
         #List of the whole timeline
@@ -59,16 +75,16 @@ class TweepyAPI:
 
         #Check offset value in order to handle problem with lastID undefined
         if offset == 0:
-            lastId = self.api.user_timeline(userID, count=1)[-1].id #+1 to make sure this single status will be caught by the next user_timeline call
+            lastId = self.api.user_timeline(userID, count=1, tweet_mode="extended")[-1].id +1 #+1 to make sure this single status will be caught by the next user_timeline call
         else:
             #Get the first 'offest' elements and assign the lastID
-            timeline.extend(self.api.user_timeline(userID, count=offset))
+            timeline.extend(self.api.user_timeline(userID, count=offset, tweet_mode="extended"))
             lastId=timeline[-1].id #Last element of the retrieved list is the oldest one
         
 
         #Iterate statusNumber//count times, each time get #count tweets
         for i in range(StatusNumber//count):      
-            timeline.extend(self.api.user_timeline(userID, count=count, max_id=lastId-1))
+            timeline.extend(self.api.user_timeline(userID, count=count, max_id=lastId-1, tweet_mode="extended"))
             #update last tweet's ID
             lastId=timeline[-1].id
 
@@ -93,7 +109,19 @@ if __name__ == "__main__":
     #42562446 is Stephen Curry's ID
     #1093586351549804544 Stefano Perenzoni (SPerenzoni)'s ID
     #2250682499 Raffaele Pojer (raffaelepojer)'s ID
-    print(twApi.get_user("SPerenzoni"))
-    tmp = twApi.get_user_timeline("SPerenzoni")
+
+    name = "SPerenzoni"
+    user = twApi.get_user(name)
+    timeline = twApi.get_user_timeline(name)
+
+    user.set_tweets(timeline)
+
+    print(user)
+
+    '''
     for t in tmp:
         print(t)
+    '''
+    '''Aknowledgements
+        In retweets media are not caught 
+    '''
