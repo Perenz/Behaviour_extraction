@@ -1,0 +1,200 @@
+{
+    "id": 1093586351549804544,
+    "name": "Stefano Perenzoni",
+    "followers": 4,
+    "following": 43,
+    "listed": 0,
+    "description": "Computer Science student @ University of Trento, Italy.\nBaller",
+    "verified": false,
+    "favorites": 51,
+    "location": "",
+    "tweets_number": 12,
+    "last": 1243126939667378177,
+    "timeline": [
+        {
+            "id": 1243126939667378177,
+            "created_at": "26/03/2020, 10:45:33",
+            "text": "#iorestoacasa: domande frequenti (vademecum aggiornato del Ministero della Salute) #Istayhome: Frequently Asked Questions (updated from Ministero della Salute) $URL$",
+            "media": [
+                {
+                    "type": "photo",
+                    "media_url": "http://pbs.twimg.com/media/EUB1ax5XYAESmfb.png"
+                },
+                {
+                    "type": "photo",
+                    "media_url": "http://pbs.twimg.com/media/EUB1ax5XQAEHtyI.png"
+                }
+            ],
+            "hashtags": [
+                "iorestoacasa",
+                "Istayhome"
+            ],
+            "mentions": [
+                1374717066
+            ],
+            "urls": [],
+            "place": {},
+            "favourite_count": 0,
+            "retweet_count": 2,
+            "tweet_type": 2
+        },
+        {
+            "id": 1243115181300948993,
+            "created_at": "26/03/2020, 09:58:49",
+            "text": "Another #Test. I sincerely hope this is the #last one.",
+            "media": [],
+            "hashtags": [
+                "Test",
+                "last"
+            ],
+            "mentions": [],
+            "urls": [],
+            "place": {},
+            "favourite_count": 0,
+            "retweet_count": 0,
+            "tweet_type": 0
+        },
+        {
+            "id": 1243110177429237760,
+            "created_at": "26/03/2020, 09:38:56",
+            "text": "Hi #network, just trying some #Hashtags",
+            "media": [],
+            "hashtags": [
+                "network",
+                "Hashtags"
+            ],
+            "mentions": [],
+            "urls": [],
+            "place": {},
+            "favourite_count": 0,
+            "retweet_count": 0,
+            "tweet_type": 0
+        },
+        {
+            "id": 1242104845181607936,
+            "created_at": "23/03/2020, 15:04:06",
+            "text": "RT @techreview: What most of us have probably not yet realized\u2014but will soon\u2014is that things won\u2019t go back to normal after a few weeks, or e\u2026",
+            "media": [],
+            "hashtags": [],
+            "mentions": [
+                15808647
+            ],
+            "urls": [],
+            "place": {},
+            "favourite_count": 0,
+            "retweet_count": 128,
+            "tweet_type": 2
+        },
+        {
+            "id": 1240190137948045315,
+            "created_at": "18/03/2020, 08:15:45",
+            "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla eget viverra justo, tincidunt maximus ex. Suspendisse potenti. Nunc tristique volutpat lacus. Pellentesque venenatis tempor mi, ut imperdiet magna tempor non.",
+            "media": [],
+            "hashtags": [],
+            "mentions": [],
+            "urls": [],
+            "place": {},
+            "favourite_count": 0,
+            "retweet_count": 0,
+            "tweet_type": 0
+        },
+        {
+            "id": 1240187697295171585,
+            "created_at": "18/03/2020, 08:06:03",
+            "text": "Just adding some text $URL$",
+            "media": [],
+            "hashtags": [],
+            "mentions": [],
+            "urls": [
+                "https://twitter.com/FabbioSabatini/status/1239836850560339968"
+            ],
+            "place": {},
+            "favourite_count": 0,
+            "retweet_count": 0,
+            "tweet_type": 3
+        },
+        {
+            "id": 1239852893748019200,
+            "created_at": "17/03/2020, 09:55:39",
+            "text": "@NBA I think we\u2019re looking at a 28 team tournament. Top 4 seeds get a bye. Teams 27, 28, 29, 30 have the neutral site play in games March madness style in a best of 3. Then the round of 28 is best of 5. And then the round of 16 etc proceeds as usual! $URL$ $URL$",
+            "media": [
+                {
+                    "type": "photo",
+                    "media_url": "http://pbs.twimg.com/media/ETFCAeuX0AE2B-t.jpg"
+                }
+            ],
+            "hashtags": [],
+            "mentions": [
+                368148234,
+                19923144
+            ],
+            "urls": [
+                "https://twitter.com/SDinwiddie_25/status/1238566527617679360"
+            ],
+            "place": {},
+            "favourite_count": 0,
+            "retweet_count": 851,
+            "tweet_type": 2
+        },
+        {
+            "id": 1239850848290770944,
+            "created_at": "17/03/2020, 09:47:32",
+            "text": "Hii, here another #test \ud83e\udd14 $URL$",
+            "media": [],
+            "hashtags": [
+                "test"
+            ],
+            "mentions": [],
+            "urls": [
+                "https://developer.twitter.com/en.html"
+            ],
+            "place": {},
+            "favourite_count": 0,
+            "retweet_count": 0,
+            "tweet_type": 0
+        },
+        {
+            "id": 1239580834501361669,
+            "created_at": "16/03/2020, 15:54:35",
+            "text": "Adding a Location",
+            "media": [],
+            "hashtags": [],
+            "mentions": [],
+            "urls": [],
+            "place": {
+                "id": "555588be28d4e2a1",
+                "full_name": "Trento, Trentino-Alto Adige",
+                "place_type": "city"
+            },
+            "favourite_count": 0,
+            "retweet_count": 0,
+            "tweet_type": 0
+        },
+        {
+            "id": 1239550438531366912,
+            "created_at": "16/03/2020, 13:53:48",
+            "text": "A second test \ud83d\udc68\u200d\ud83c\udf93",
+            "media": [],
+            "hashtags": [],
+            "mentions": [],
+            "urls": [],
+            "place": {},
+            "favourite_count": 0,
+            "retweet_count": 0,
+            "tweet_type": 0
+        },
+        {
+            "id": 1239510222630260737,
+            "created_at": "16/03/2020, 11:14:00",
+            "text": "New to the platform, just saying Hello!",
+            "media": [],
+            "hashtags": [],
+            "mentions": [],
+            "urls": [],
+            "place": {},
+            "favourite_count": 0,
+            "retweet_count": 0,
+            "tweet_type": 0
+        }
+    ]
+}

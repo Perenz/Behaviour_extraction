@@ -1,2 +1,4 @@
+*__pycache__*
 src/twitter/keys.json
 src/sentiment/keys.json
+UserJson
