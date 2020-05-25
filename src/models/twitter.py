@@ -347,6 +347,20 @@ class Tweet:
             'favourite_count':self.favorite,
             'retweet_count':self.retweet_count,
             'tweet_type':self.tweet_type}
+
+    def to_features(self):
+        '''
+        Return a partial dict representing the tweet.
+        It will be completed by the analyzer
+        '''
+        return {'id':self.id,
+            'created_at':self.created_at.strftime("%d/%m/%Y, %H:%M:%S"),
+            'hashtags':self.hashtags,
+            'mentions':self.mentions,
+            'place':self.place,
+            'favourite_count':self.favorite,
+            'retweet_count':self.retweet_count,
+            'tweet_type':self.tweet_type}
             
     def __compute_sentiment(self):
         #Send the request
@@ -362,6 +376,9 @@ class Tweet:
         response = self.sentApi.entities_topics_request(self.text)
 
         self.semantic = response
+
+    
+
 
     # Comparison based on the tweet ID. the greater it is, the older the tweet is
     def __eq__(self, t):

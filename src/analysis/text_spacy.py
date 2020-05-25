@@ -30,8 +30,8 @@ def hashtag_pipe(doc):
 class Spacytext:
     def __init__(self):
         self.nlp = it_core_news_sm.load()
-        emoji = Emoji(nlp)
-        sentencizer = nlp.create_pipe("sentencizer")
+        emoji = Emoji(self.nlp)
+        sentencizer = self.nlp.create_pipe("sentencizer")
 
         #Add components to the pipeline
         self.nlp.add_pipe(emoji, first=True)
@@ -43,6 +43,9 @@ class Spacytext:
             Given a text, return a document of the analyzed text.
             Analysis comprehends tokenization, lemmatization and POS tagging.
         '''
+        #Remove $URL$
+        text = text.replace('$URL$', '')
+
         features = {}
         #Count capital letters
         features['num_capital'] = sum(1 for char in text if char.isupper())
@@ -71,7 +74,7 @@ class Spacytext:
         punct = ''
         for t in tok_doc:
             #POS tag
-            pos_tag.append(t.pos)
+            pos_tag.append(t.pos_)
             #filter type
             if t.is_stop:
                 stop_word.append(t.lemma_)
@@ -90,6 +93,6 @@ class Spacytext:
         features['stopwords'] = dict(Counter(stop_word).most_common())
         features['punct'] = punct
         features['emojis'] = dict(Counter(emoji).most_common())
-        features['pos_tag'] = dict(Counter(pos_tag).most_common)
+        features['pos_tag'] = dict(Counter(pos_tag).most_common())
 
         return features

@@ -1,7 +1,7 @@
 from __future__ import absolute_import, annotations
-from twitter.api import TweepyAPI
-from models.twitter import User
-from support.persistance import check_user_last
+from twitter.api import TweepyAPI, User
+from support.persistance import mongoDBDao
+from analysis.analyzer import Analyzer
 import json
 
 from flask import Flask, request, jsonify
@@ -24,23 +24,44 @@ class errorHandler(Exception):
 def welcome():
     return "Welcome!"
 
+def get_user(UserID):
+#Open DB connection
+    conn = mongoDBDao()
+
+    #Check persistance and get last
+    last = conn.get_user_last(UserID)
+
+    twApi = TweepyAPI()
+    user=twApi.get_user(UserID)
+    user.add_tweets(twApi.get_user_timeline(UserID, since=last))
+
+    #Update last
+    conn.insert_user_last(UserID, user.last)
+
+    #Get user representation and return
+    return user
+
 @app.route('/profile', methods=['GET'])
 def twitter_profile():
+    UserID = int(request.args.get('id'))
+    if UserID is not None:
+        res = get_user(int(UserID))
+        return jsonify(res.to_repr())
+    else:
+        raise errorHandler('Invalid id parameter', statusCode=404)
+
+@app.route('/analyze', methods=['GET'])
+def analyze():
     UserID = request.args.get('id')
     if UserID is not None:
-        #Check persistance
-        last = check_user_last(UserID)
-
-        twApi = TweepyAPI()
-        user=twApi.get_user(UserID)
-        user.add_tweets(twApi.get_user_timeline(UserID, since=last))
-
-        #Get user representation and return
-        res=user.to_repr()
+        analyzer = Analyzer()
+        user = get_user(int(UserID))
+        res = user.to_repr()
+        #Modify timeline with the featured tweets
+        res['timeline'] = analyzer.analyze_timeline(user.timeline)
         return jsonify(res)
     else:
         raise errorHandler('Invalid id parameter', statusCode=404)
-    
 
 if __name__ == '__main__':
     #Default host = 127.0.0.1
