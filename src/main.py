@@ -2,6 +2,7 @@ from __future__ import absolute_import, annotations
 from twitter.api import TweepyAPI, User
 from support.persistance import mongoDBDao
 from analysis.analyzer import Analyzer
+from aggregate.main import Aggregator
 import json
 
 from flask import Flask, request, jsonify
@@ -33,7 +34,8 @@ def get_user(UserID):
 
     twApi = TweepyAPI()
     user=twApi.get_user(UserID)
-    user.add_tweets(twApi.get_user_timeline(UserID, since=last))
+    #DEBUG
+    user.add_tweets(twApi.get_user_timeline(UserID, since=None))
 
     #Update last
     conn.insert_user_last(UserID, user.last)
@@ -60,6 +62,25 @@ def analyze():
         #Modify timeline with the featured tweets
         res['timeline'] = analyzer.analyze_timeline(user.timeline)
         return jsonify(res)
+    else:
+        raise errorHandler('Invalid id parameter', statusCode=404)
+
+@app.route('/aggregate', methods=['GET'])
+def aggregate():
+    UserID = request.args.get('id')
+    if UserID is not None:
+        analyzer = Analyzer()
+        user = get_user(int(UserID))
+        res = user.to_repr()
+        #Modify timeline with the featured tweets
+        res['timeline'] = analyzer.analyze_timeline(user.timeline)
+        
+        #Aggreagates
+        aggregator = Aggregator()
+        batch = aggregator.aggregates(res)
+        
+        return jsonify(batch)
+        #return jsonify(res)
     else:
         raise errorHandler('Invalid id parameter', statusCode=404)
 

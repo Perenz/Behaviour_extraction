@@ -60,8 +60,12 @@ class Spacytext:
         #Build the features of the analysis
         #TODO Should normalise to tweet limit? (140/280)
         
-        features['sentence_num'] = len(list(tok_doc.sents)) #Number of sentences
+        features['sentence_num'] = len(list(tok_doc.sents))  #Number of sentences
+        if features['sentence_num'] == 0:
+          features['sentence_num'] = 1
         features['word_num'] = len(tok_doc) #Number of words
+        if features['word_num'] == 0:
+          features['word_num'] = 1
         features['char_num'] = sum(len(t.text) for t in tok_doc) #Number of chars
         features['word_per_sentence'] = features['word_num'] / features['sentence_num'] #Words per sentence
         features['char_per_sentence'] = features['char_num'] / features['sentence_num'] #Chars per sentence
